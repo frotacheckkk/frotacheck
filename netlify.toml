@@ -1,0 +1,50 @@
+[build]
+  command = "flutter build web --release --web-renderer canvaskit"
+  publish = "build/web"
+
+[context.production]
+  command = "flutter build web --release --web-renderer canvaskit"
+  publish = "build/web"
+
+[context.deploy-preview]
+  command = "flutter build web --release --web-renderer canvaskit"
+  publish = "build/web"
+
+[context.branch-deploy]
+  command = "flutter build web --release --web-renderer canvaskit"
+  publish = "build/web"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/flutter_service_worker.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*.dart.js"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/**"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/canvaskit/**"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/icons/**"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
