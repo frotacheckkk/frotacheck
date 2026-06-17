@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
 # Use a known stable Flutter version compatible with the project.
 FLUTTER_VERSION="3.41.1-stable"
@@ -21,6 +21,17 @@ fi
 export PATH="$FLUTTER_DIR/bin:$PATH"
 export PUB_CACHE="$HOME/.pub-cache"
 
+echo "=== Flutter environment ==="
 flutter --version
+which flutter
+flutter doctor -v
+
+echo "=== Build directory listing ==="
+pwd
+ls -la
+ls -la assets
+ls -la assets/images
+
+flutter clean
 flutter pub get
-flutter build web
+flutter build web --release --no-wasm-dry-run
