@@ -234,60 +234,71 @@ class _LoginPageState extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            AppLogo(compact: false, iconSize: 48),
-            SizedBox(width: 24),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              AppLogo(compact: false, iconSize: 56),
+              SizedBox(height: 20),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'FROTA',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 32,
+                      fontSize: 36,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 3,
-                      height: 1.0,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(width: 12),
                   Text(
                     'CHECK',
                     style: TextStyle(
                       color: AppColors.secondary,
-                      fontSize: 32,
+                      fontSize: 36,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 3,
-                      height: 1.0,
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 40),
-        const Text(
-          'Gestão completa da sua frota\nna palma da sua mão.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-            fontWeight: FontWeight.w400,
-            height: 1.3,
+            ],
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 48),
+        RichText(
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: 'Gestão completa da sua frota\nna ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  height: 1.3,
+                ),
+              ),
+              TextSpan(
+                text: 'palma da sua mão.',
+                style: TextStyle(
+                  color: AppColors.secondary,
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  height: 1.3,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
         const Text(
           'Monitore seus veículos, mantenha a operação conectada e\n'
           'otimize sua frota com dashboards inteligentes.',
           style: TextStyle(
             color: AppColors.textSecondary,
-            fontSize: 15,
+            fontSize: 14,
             height: 1.7,
           ),
         ),
