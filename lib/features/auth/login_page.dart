@@ -1,4 +1,6 @@
 // Build v2.1 - Layout improvements applied
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../home_page.dart';
@@ -114,6 +116,17 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  String _getPlatformLabel() {
+    if (kIsWeb) {
+      return 'LOGIN WEB';
+    } else if (Platform.isIOS) {
+      return 'LOGIN iOS';
+    } else if (Platform.isAndroid) {
+      return 'LOGIN ANDROID';
+    }
+    return 'LOGIN';
+  }
+
   @override
   void dispose() {
     emailController.dispose();
@@ -222,35 +235,43 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
-            AppLogo(compact: false, iconSize: 44),
-            SizedBox(width: 18),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'FROTA',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+            AppLogo(compact: false, iconSize: 48),
+            SizedBox(width: 24),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'FROTA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 3,
+                      height: 1.0,
+                    ),
                   ),
-                ),
-                Text(
-                  'CHECK',
-                  style: TextStyle(
-                    color: AppColors.secondary,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
+                  SizedBox(height: 4),
+                  Text(
+                    'CHECK',
+                    style: TextStyle(
+                      color: AppColors.secondary,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 3,
+                      height: 1.0,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
-        const SizedBox(height: 26),
+        const SizedBox(height: 40),
         const Text(
           'Gestão completa da sua frota\nna palma da sua mão.',
           style: TextStyle(
@@ -350,10 +371,10 @@ class _LoginPageState extends State<LoginPage> {
                 width: 1.2,
               ),
             ),
-            child: const Text(
-              'LOGIN WEB',
+            child: Text(
+              _getPlatformLabel(),
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.secondary,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.6,
