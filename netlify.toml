@@ -32,12 +32,12 @@
 [[headers]]
   for = "/*.dart.js"
   [headers.values]
-    Cache-Control = "max-age=31536000, immutable"
+    Cache-Control = "no-cache, no-store, must-revalidate"
 
 [[headers]]
   for = "/assets/**"
   [headers.values]
-    Cache-Control = "max-age=31536000, immutable"
+    Cache-Control = "max-age=3600, must-revalidate"
 
 [[headers]]
   for = "/canvaskit/**"
