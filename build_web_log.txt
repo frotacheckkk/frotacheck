@@ -1,104 +1,367 @@
-﻿Compiling lib\main.dart for the Web...                          
-flutter.bat : Wasm dry run succeeded. Consider building and testing your 
-application with the `--wasm` flag. See docs for more info: 
-https://docs.flutter.dev/platform-integration/web/wasm
-No linha:1 caractere:1
-+ & 'C:\Cflutter\flutter\bin\flutter.bat' build web --release 2>&1 | Ou ...
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (Wasm dry run 
-su...ration/web/wasm:String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
-Use --no-wasm-dry-run to disable these warnings.
-Target dart2js failed: ProcessException: Process exited abnormally with exit 
-code 1:
-lib/features/auth/login_page.dart:56:19:
-Error: Can't find ']' to match '['.
-        children: [
-                  ^
-lib/features/auth/login_page.dart:53:20:
-Error: Can't find ')' to match '('.
-    return Scaffold(
-                   ^
-lib/pages/troca_oleo_page.dart:132:20:
-Error: Can't find ')' to match '('.
-    return Scaffold(
-                   ^
-lib/features/auth/login_page.dart:82:21:
-Error: Member not found: 'road'.
-              Icons.road,
-                    ^^^^
-Error: Compilation failed.
-  Command: C:\Cflutter\flutter\bin\cache\dart-sdk\bin\dart.exe compile js 
---platform-binaries=C:\Cflutter\flutter\bin\cache\flutter_web_sdk\kernel 
---invoker=flutter_tool -Ddart.vm.product=true -DFLUTTER_VERSION=3.41.1 
--DFLUTTER_CHANNEL=stable 
--DFLUTTER_GIT_URL=https://github.com/flutter/flutter.git 
--DFLUTTER_FRAMEWORK_REVISION=582a0e7c55 -DFLUTTER_ENGINE_REVISION=3452d735bd 
--DFLUTTER_DART_VERSION=3.11.0 -DFLUTTER_WEB_USE_SKIA=true 
--DFLUTTER_WEB_USE_SKWASM=false -DFLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.
-com/flutter-canvaskit/3452d735bd38224ef2db85ca763d862d6326b17f/ 
---native-null-assertions --no-source-maps -O4 --minify -o C:\frotacheck\.dart_t
-ool\flutter_build\9ed661f448094063e9351955b3332028\app.dill 
---packages=C:\frotacheck\.dart_tool\package_config.json --cfe-only C:\frotachec
-k\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\main.dart
-#0      RunResult.throwException 
-(package:flutter_tools/src/base/process.dart:153:5)
-#1      _DefaultProcessUtils.run 
-(package:flutter_tools/src/base/process.dart:379:19)
-<asynchronous suspension>
-#2      Dart2JSTarget.build 
-(package:flutter_tools/src/build_system/targets/web.dart:208:5)
-<asynchronous suspension>
-#3      _BuildInstance._invokeInternal 
-(package:flutter_tools/src/build_system/build_system.dart:937:9)
-<asynchronous suspension>
-#4      Future.wait.<anonymous closure> (dart:async/future.dart:546:21)
-<asynchronous suspension>
-#5      _BuildInstance.invokeTarget 
-(package:flutter_tools/src/build_system/build_system.dart:875:32)
-<asynchronous suspension>
-#6      Future.wait.<anonymous closure> (dart:async/future.dart:546:21)
-<asynchronous suspension>
-#7      _BuildInstance.invokeTarget 
-(package:flutter_tools/src/build_system/build_system.dart:875:32)
-<asynchronous suspension>
-#8      FlutterBuildSystem.build 
-(package:flutter_tools/src/build_system/build_system.dart:684:16)
-<asynchronous suspension>
-#9      WebBuilder.buildWeb (package:flutter_tools/src/web/compile.dart:101:34)
-<asynchronous suspension>
-#10     BuildWebCommand.runCommand 
-(package:flutter_tools/src/commands/build_web.dart:299:5)
-<asynchronous suspension>
-#11     FlutterCommand.run.<anonymous closure> 
-(package:flutter_tools/src/runner/flutter_command.dart:1590:27)
-<asynchronous suspension>
-#12     AppContext.run.<anonymous closure> 
-(package:flutter_tools/src/base/context.dart:154:19)
-<asynchronous suspension>
-#13     CommandRunner.runCommand (package:args/command_runner.dart:212:13)
-<asynchronous suspension>
-#14     FlutterCommandRunner.runCommand.<anonymous closure> 
-(package:flutter_tools/src/runner/flutter_command_runner.dart:496:9)
-<asynchronous suspension>
-#15     AppContext.run.<anonymous closure> 
-(package:flutter_tools/src/base/context.dart:154:19)
-<asynchronous suspension>
-#16     FlutterCommandRunner.runCommand 
-(package:flutter_tools/src/runner/flutter_command_runner.dart:431:5)
-<asynchronous suspension>
-#17     FlutterCommandRunner.run.<anonymous closure> 
-(package:flutter_tools/src/runner/flutter_command_runner.dart:307:33)
-<asynchronous suspension>
-#18     run.<anonymous closure>.<anonymous closure> 
-(package:flutter_tools/runner.dart:104:11)
-<asynchronous suspension>
-#19     AppContext.run.<anonymous closure> 
-(package:flutter_tools/src/base/context.dart:154:19)
-<asynchronous suspension>
-#20     main (package:flutter_tools/executable.dart:103:3)
-<asynchronous suspension>
-
-Compiling lib\main.dart for the Web...                             60,4s
-Error: Failed to compile application for the Web.
+﻿[ +205 ms] Artifact Instance of 'MaterialFonts' is not required, skipping update.
+[        ] Artifact Instance of 'GradleWrapper' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidGenSnapshotArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidInternalBuildArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterWebSdk' is not required, skipping update.
+[   +1 ms] Artifact Instance of 'LegacyCanvasKitRemover' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterSdk' is not required, skipping update.
+[        ] Artifact Instance of 'WindowsEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerDebugSymbols' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FontSubsetArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'PubDependencies' is not required, skipping update.
+[        ] executing: [C:\Cflutter\flutter/] git -c log.showSignature=false log HEAD -n 1 --pretty=format:%ad --date=iso
+[  +79 ms] Exit code 0 from: git -c log.showSignature=false log HEAD -n 1 --pretty=format:%ad --date=iso
+[        ] 2026-02-12 17:12:32 -0800
+[  +19 ms] Artifact Instance of 'AndroidGenSnapshotArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidInternalBuildArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterWebSdk' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterEngineStamp' is not required, skipping update.
+[        ] Artifact Instance of 'LegacyCanvasKitRemover' is not required, skipping update.
+[   +2 ms] Artifact Instance of 'WindowsEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerDebugSymbols' is not required, skipping update.
+[  +50 ms] Artifact Instance of 'MaterialFonts' is not required, skipping update.
+[        ] Artifact Instance of 'GradleWrapper' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidGenSnapshotArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidInternalBuildArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterEngineStamp' is not required, skipping update.
+[  +26 ms] Artifact Instance of 'FlutterSdk' is not required, skipping update.
+[        ] Artifact Instance of 'WindowsEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerDebugSymbols' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FontSubsetArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'PubDependencies' is not required, skipping update.
+[  +19 ms] Skipping pub get: version match.
+[  +96 ms] Found plugin url_launcher at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher-6.3.2\
+[   +5 ms] Found plugin url_launcher_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_windows-3.1.5\
+[   +6 ms] Found plugin url_launcher_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_web-2.4.3\
+[   +2 ms] Found plugin url_launcher_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_macos-3.2.5\
+[   +3 ms] Found plugin url_launcher_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_linux-3.2.2\
+[   +3 ms] Found plugin url_launcher_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_ios-6.4.1\
+[   +3 ms] Found plugin url_launcher_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.30\
+[  +32 ms] Found plugin shared_preferences at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences-2.5.5\
+[   +2 ms] Found plugin shared_preferences_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_windows-2.4.1\
+[   +2 ms] Found plugin path_provider_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_windows-2.3.0\
+[  +10 ms] Found plugin shared_preferences_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_web-2.4.3\
+[   +2 ms] Found plugin shared_preferences_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_linux-2.4.1\
+[   +1 ms] Found plugin path_provider_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_linux-2.2.1\
+[   +3 ms] Found plugin shared_preferences_foundation at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_foundation-2.5.6\
+[   +1 ms] Found plugin shared_preferences_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.23\
+[   +1 ms] Found plugin passkeys at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys-2.20.0\
+[   +2 ms] Found plugin ua_client_hints at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\ua_client_hints-1.7.0\
+[   +1 ms] Found plugin passkeys_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_windows-0.1.1\
+[   +4 ms] Found plugin passkeys_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_web-2.9.0\
+[   +3 ms] Found plugin passkeys_doctor at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_doctor-1.4.0\
+[   +2 ms] Found plugin package_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\package_info_plus-9.0.1\
+[   +5 ms] Found plugin device_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\device_info_plus-12.4.0\
+[   +6 ms] Found plugin passkeys_darwin at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_darwin-0.4.0\
+[   +3 ms] Found plugin passkeys_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_android-2.12.0\
+[   +2 ms] Found plugin app_links at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links-7.0.0\
+[   +2 ms] Found plugin app_links_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_web-1.0.4\
+[   +4 ms] Found plugin app_links_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_linux-1.0.3\
+[   +1 ms] Found plugin gtk at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\gtk-2.2.0\
+[   +2 ms] Found plugin image_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker-1.2.2\
+[   +2 ms] Found plugin image_picker_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_windows-0.2.2\
+[   +7 ms] Found plugin file_selector_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_windows-0.9.3+5\
+[   +4 ms] Found plugin image_picker_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_macos-0.2.2+1\
+[   +2 ms] Found plugin file_selector_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_macos-0.9.5\
+[   +2 ms] Found plugin image_picker_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_linux-0.2.2\
+[   +2 ms] Found plugin file_selector_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_linux-0.9.4\
+[   +1 ms] Found plugin image_picker_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_ios-0.8.13+6\
+[   +1 ms] Found plugin image_picker_for_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_for_web-3.1.1\
+[   +2 ms] Found plugin image_picker_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.13+17\
+[   +1 ms] Found plugin flutter_plugin_android_lifecycle at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.35\
+[   +4 ms] Found plugin file_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-5.5.0\
+[   +7 ms] Package file_picker:linux references file_picker:linux as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: linux: default_package: file_picker` or add an inline implementation to file_picker via `platforms: linux:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[   +1 ms] Package file_picker:macos references file_picker:macos as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: macos: default_package: file_picker` or add an inline implementation to file_picker via `platforms: macos:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:windows references file_picker:windows as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: windows: default_package: file_picker` or add an inline implementation to file_picker via `platforms: windows:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[  +45 ms] Found plugin url_launcher at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher-6.3.2\
+[   +2 ms] Found plugin url_launcher_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_windows-3.1.5\
+[   +2 ms] Found plugin url_launcher_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_web-2.4.3\
+[   +2 ms] Found plugin url_launcher_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_macos-3.2.5\
+[   +2 ms] Found plugin url_launcher_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_linux-3.2.2\
+[   +1 ms] Found plugin url_launcher_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_ios-6.4.1\
+[   +1 ms] Found plugin url_launcher_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.30\
+[  +31 ms] Found plugin shared_preferences at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences-2.5.5\
+[   +1 ms] Found plugin shared_preferences_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_windows-2.4.1\
+[   +1 ms] Found plugin path_provider_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_windows-2.3.0\
+[   +5 ms] Found plugin shared_preferences_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_web-2.4.3\
+[   +1 ms] Found plugin shared_preferences_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_linux-2.4.1\
+[        ] Found plugin path_provider_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_linux-2.2.1\
+[   +1 ms] Found plugin shared_preferences_foundation at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_foundation-2.5.6\
+[   +1 ms] Found plugin shared_preferences_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.23\
+[   +1 ms] Found plugin passkeys at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys-2.20.0\
+[        ] Found plugin ua_client_hints at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\ua_client_hints-1.7.0\
+[        ] Found plugin passkeys_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_windows-0.1.1\
+[   +2 ms] Found plugin passkeys_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_web-2.9.0\
+[   +1 ms] Found plugin passkeys_doctor at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_doctor-1.4.0\
+[   +1 ms] Found plugin package_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\package_info_plus-9.0.1\
+[   +2 ms] Found plugin device_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\device_info_plus-12.4.0\
+[   +5 ms] Found plugin passkeys_darwin at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_darwin-0.4.0\
+[   +1 ms] Found plugin passkeys_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_android-2.12.0\
+[   +1 ms] Found plugin app_links at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links-7.0.0\
+[   +1 ms] Found plugin app_links_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_web-1.0.4\
+[   +1 ms] Found plugin app_links_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_linux-1.0.3\
+[        ] Found plugin gtk at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\gtk-2.2.0\
+[        ] Found plugin image_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker-1.2.2\
+[        ] Found plugin image_picker_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_windows-0.2.2\
+[   +2 ms] Found plugin file_selector_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_windows-0.9.3+5\
+[   +1 ms] Found plugin image_picker_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_macos-0.2.2+1\
+[        ] Found plugin file_selector_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_macos-0.9.5\
+[        ] Found plugin image_picker_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_linux-0.2.2\
+[        ] Found plugin file_selector_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_linux-0.9.4\
+[   +1 ms] Found plugin image_picker_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_ios-0.8.13+6\
+[   +1 ms] Found plugin image_picker_for_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_for_web-3.1.1\
+[   +1 ms] Found plugin image_picker_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.13+17\
+[        ] Found plugin flutter_plugin_android_lifecycle at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.35\
+[   +2 ms] Found plugin file_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-5.5.0\
+[   +2 ms] Package file_picker:linux references file_picker:linux as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: linux: default_package: file_picker` or add an inline implementation to file_picker via `platforms: linux:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:macos references file_picker:macos as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: macos: default_package: file_picker` or add an inline implementation to file_picker via `platforms: macos:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:windows references file_picker:windows as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: windows: default_package: file_picker` or add an inline implementation to file_picker via `platforms: windows:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[  +11 ms] Skipping generating web_plugin_registrant.dart because it is up-to-date.
+[  +28 ms] Found plugin url_launcher at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher-6.3.2\
+[   +1 ms] Found plugin url_launcher_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_windows-3.1.5\
+[   +2 ms] Found plugin url_launcher_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_web-2.4.3\
+[   +1 ms] Found plugin url_launcher_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_macos-3.2.5\
+[   +1 ms] Found plugin url_launcher_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_linux-3.2.2\
+[   +1 ms] Found plugin url_launcher_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_ios-6.4.1\
+[   +1 ms] Found plugin url_launcher_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.30\
+[  +17 ms] Found plugin shared_preferences at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences-2.5.5\
+[   +2 ms] Found plugin shared_preferences_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_windows-2.4.1\
+[   +1 ms] Found plugin path_provider_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_windows-2.3.0\
+[   +3 ms] Found plugin shared_preferences_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_web-2.4.3\
+[   +1 ms] Found plugin shared_preferences_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_linux-2.4.1\
+[   +1 ms] Found plugin path_provider_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_linux-2.2.1\
+[   +1 ms] Found plugin shared_preferences_foundation at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_foundation-2.5.6\
+[        ] Found plugin shared_preferences_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.23\
+[   +1 ms] Found plugin passkeys at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys-2.20.0\
+[   +1 ms] Found plugin ua_client_hints at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\ua_client_hints-1.7.0\
+[        ] Found plugin passkeys_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_windows-0.1.1\
+[   +1 ms] Found plugin passkeys_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_web-2.9.0\
+[        ] Found plugin passkeys_doctor at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_doctor-1.4.0\
+[   +1 ms] Found plugin package_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\package_info_plus-9.0.1\
+[   +3 ms] Found plugin device_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\device_info_plus-12.4.0\
+[   +2 ms] Found plugin passkeys_darwin at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_darwin-0.4.0\
+[        ] Found plugin passkeys_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_android-2.12.0\
+[   +1 ms] Found plugin app_links at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links-7.0.0\
+[   +1 ms] Found plugin app_links_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_web-1.0.4\
+[   +1 ms] Found plugin app_links_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_linux-1.0.3\
+[        ] Found plugin gtk at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\gtk-2.2.0\
+[        ] Found plugin image_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker-1.2.2\
+[        ] Found plugin image_picker_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_windows-0.2.2\
+[   +2 ms] Found plugin file_selector_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_windows-0.9.3+5\
+[   +1 ms] Found plugin image_picker_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_macos-0.2.2+1\
+[        ] Found plugin file_selector_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_macos-0.9.5\
+[        ] Found plugin image_picker_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_linux-0.2.2\
+[        ] Found plugin file_selector_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_linux-0.9.4\
+[        ] Found plugin image_picker_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_ios-0.8.13+6\
+[   +1 ms] Found plugin image_picker_for_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_for_web-3.1.1\
+[   +1 ms] Found plugin image_picker_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.13+17\
+[   +1 ms] Found plugin flutter_plugin_android_lifecycle at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.35\
+[   +2 ms] Found plugin file_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-5.5.0\
+[   +1 ms] Package file_picker:linux references file_picker:linux as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: linux: default_package: file_picker` or add an inline implementation to file_picker via `platforms: linux:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:macos references file_picker:macos as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: macos: default_package: file_picker` or add an inline implementation to file_picker via `platforms: macos:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:windows references file_picker:windows as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: windows: default_package: file_picker` or add an inline implementation to file_picker via `platforms: windows:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[   +4 ms] Generating C:\frotacheck\android\app\src\main\java\io\flutter\plugins\GeneratedPluginRegistrant.java
+[   +2 ms] Skipping generating GeneratedPluginRegistrant.java because it is up-to-date.
+[   +5 ms] Skipping generating generated_plugin_registrant.h because it is up-to-date.
+[   +1 ms] Skipping generating generated_plugin_registrant.cc because it is up-to-date.
+[   +1 ms] Skipping generating generated_plugins.cmake because it is up-to-date.
+[   +1 ms] Skipping generating generated_plugin_registrant.h because it is up-to-date.
+[        ] Skipping generating generated_plugin_registrant.cc because it is up-to-date.
+[   +1 ms] Skipping generating generated_plugins.cmake because it is up-to-date.
+[        ] Package file_picker:linux references file_picker:linux as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: linux: default_package: file_picker` or add an inline implementation to file_picker via `platforms: linux:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:macos references file_picker:macos as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: macos: default_package: file_picker` or add an inline implementation to file_picker via `platforms: macos:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:windows references file_picker:windows as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: windows: default_package: file_picker` or add an inline implementation to file_picker via `platforms: windows:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[   +2 ms] Skipping generating GeneratedPluginRegistrant.h because it is up-to-date.
+[        ] Skipping generating GeneratedPluginRegistrant.m because it is up-to-date.
+[        ] Skipping generating GeneratedPluginRegistrant.swift because it is up-to-date.
+[ +151 ms] Found plugin url_launcher at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher-6.3.2\
+[   +1 ms] Found plugin url_launcher_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_windows-3.1.5\
+[   +3 ms] Found plugin url_launcher_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_web-2.4.3\
+[   +1 ms] Found plugin url_launcher_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_macos-3.2.5\
+[   +1 ms] Found plugin url_launcher_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_linux-3.2.2\
+[   +1 ms] Found plugin url_launcher_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_ios-6.4.1\
+[   +1 ms] Found plugin url_launcher_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.30\
+[  +16 ms] Found plugin shared_preferences at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences-2.5.5\
+[        ] Found plugin shared_preferences_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_windows-2.4.1\
+[   +1 ms] Found plugin path_provider_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_windows-2.3.0\
+[   +4 ms] Found plugin shared_preferences_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_web-2.4.3\
+[   +1 ms] Found plugin shared_preferences_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_linux-2.4.1\
+[        ] Found plugin path_provider_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_linux-2.2.1\
+[  +31 ms] Found plugin shared_preferences_foundation at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_foundation-2.5.6\
+[   +1 ms] Found plugin shared_preferences_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.23\
+[        ] Found plugin passkeys at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys-2.20.0\
+[        ] Found plugin ua_client_hints at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\ua_client_hints-1.7.0\
+[        ] Found plugin passkeys_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_windows-0.1.1\
+[   +2 ms] Found plugin passkeys_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_web-2.9.0\
+[   +1 ms] Found plugin passkeys_doctor at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_doctor-1.4.0\
+[   +1 ms] Found plugin package_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\package_info_plus-9.0.1\
+[   +3 ms] Found plugin device_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\device_info_plus-12.4.0\
+[   +4 ms] Found plugin passkeys_darwin at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_darwin-0.4.0\
+[   +1 ms] Found plugin passkeys_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_android-2.12.0\
+[   +2 ms] Found plugin app_links at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links-7.0.0\
+[   +1 ms] Found plugin app_links_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_web-1.0.4\
+[   +1 ms] Found plugin app_links_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_linux-1.0.3\
+[   +2 ms] Found plugin gtk at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\gtk-2.2.0\
+[   +2 ms] Found plugin image_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker-1.2.2\
+[   +1 ms] Found plugin image_picker_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_windows-0.2.2\
+[   +3 ms] Found plugin file_selector_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_windows-0.9.3+5\
+[   +2 ms] Found plugin image_picker_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_macos-0.2.2+1\
+[   +1 ms] Found plugin file_selector_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_macos-0.9.5\
+[        ] Found plugin image_picker_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_linux-0.2.2\
+[   +1 ms] Found plugin file_selector_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_linux-0.9.4\
+[   +1 ms] Found plugin image_picker_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_ios-0.8.13+6\
+[   +1 ms] Found plugin image_picker_for_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_for_web-3.1.1\
+[   +1 ms] Found plugin image_picker_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.13+17\
+[   +1 ms] Found plugin flutter_plugin_android_lifecycle at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.35\
+[   +5 ms] Found plugin file_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-5.5.0\
+[   +5 ms] generated_plugin_registrant.dart not found. Skipping.
+[   +1 ms] Compiling lib\main.dart for the Web...
+[  +14 ms] Initializing file store
+[  +38 ms] invalidated build due to missing files: C:\frotacheck\web\*\index.html, C:\frotacheck\web\flutter_bootstrap.js
+[   +1 ms] web_entrypoint: Starting due to {InvalidatedReasonKind.outputSetAddition: The following outputs were added to the output set: C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\main.dart, InvalidatedReasonKind.inputChanged: The following inputs have updated contents: C:\Cflutter\flutter\packages\flutter_tools\lib\src\build_system\targets\web.dart}
+[   +1 ms] Skipping target: gen_localizations
+[   +3 ms] web_templated_files: Starting due to {InvalidatedReasonKind.buildKeyChanged: The target build key changed., InvalidatedReasonKind.outputSetAddition: The following outputs were added to the output set: C:\frotacheck\build\web\*\index.html,C:\frotacheck\build\web\flutter_bootstrap.js, InvalidatedReasonKind.inputMissing: The following inputs were missing: C:\frotacheck\web\*\index.html,C:\frotacheck\web\flutter_bootstrap.js, InvalidatedReasonKind.inputChanged: The following inputs have updated contents: C:\Cflutter\flutter\bin\cache\engine.stamp}
+[   +1 ms] dart_build: Starting due to {}
+[   +1 ms] web_static_assets: Starting due to {InvalidatedReasonKind.inputChanged: The following inputs have updated contents: C:\Cflutter\flutter\bin\cache\engine.stamp, InvalidatedReasonKind.outputSetAddition: The following outputs were added to the output set: C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\flutter.js,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\canvaskit.js,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\canvaskit.js.symbols,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\canvaskit.wasm,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\chromium\canvaskit.js,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\chromium\canvaskit.js.symbols,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\chromium\canvaskit.wasm,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\skwasm.js,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\skwasm.js.symbols,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\skwasm.wasm,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\skwasm_heavy.js,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\skwasm_heavy.js.symbols,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\skwasm_heavy.wasm,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\wimp.js,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\wimp.js.symbols,C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\canvaskit\wimp.wasm}
+[ +120 ms] web_static_assets: Complete
+[  +68 ms] web_templated_files: Complete
+[  +28 ms] No packages with native assets. Skipping native assets compilation.
+[   +4 ms] dart_build: Complete
+[   +8 ms] Found plugin url_launcher at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher-6.3.2\
+[   +2 ms] Found plugin url_launcher_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_windows-3.1.5\
+[   +2 ms] Found plugin url_launcher_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_web-2.4.3\
+[   +1 ms] Found plugin url_launcher_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_macos-3.2.5\
+[   +1 ms] Found plugin url_launcher_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_linux-3.2.2\
+[   +1 ms] Found plugin url_launcher_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_ios-6.4.1\
+[   +1 ms] Found plugin url_launcher_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\url_launcher_android-6.3.30\
+[  +16 ms] Found plugin shared_preferences at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences-2.5.5\
+[   +1 ms] Found plugin shared_preferences_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_windows-2.4.1\
+[   +2 ms] Found plugin path_provider_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_windows-2.3.0\
+[   +5 ms] Found plugin shared_preferences_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_web-2.4.3\
+[   +1 ms] Found plugin shared_preferences_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_linux-2.4.1\
+[   +1 ms] Found plugin path_provider_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\path_provider_linux-2.2.1\
+[   +1 ms] Found plugin shared_preferences_foundation at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_foundation-2.5.6\
+[   +1 ms] Found plugin shared_preferences_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.23\
+[   +1 ms] Found plugin passkeys at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys-2.20.0\
+[   +1 ms] Found plugin ua_client_hints at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\ua_client_hints-1.7.0\
+[   +1 ms] Found plugin passkeys_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_windows-0.1.1\
+[   +4 ms] Found plugin passkeys_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_web-2.9.0\
+[   +1 ms] Found plugin passkeys_doctor at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_doctor-1.4.0\
+[   +1 ms] Found plugin package_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\package_info_plus-9.0.1\
+[   +4 ms] Found plugin device_info_plus at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\device_info_plus-12.4.0\
+[   +4 ms] Found plugin passkeys_darwin at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_darwin-0.4.0\
+[   +2 ms] Found plugin passkeys_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\passkeys_android-2.12.0\
+[   +1 ms] Found plugin app_links at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links-7.0.0\
+[   +2 ms] Found plugin app_links_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_web-1.0.4\
+[   +2 ms] Found plugin app_links_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\app_links_linux-1.0.3\
+[   +1 ms] Found plugin gtk at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\gtk-2.2.0\
+[   +2 ms] Found plugin image_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker-1.2.2\
+[   +2 ms] Found plugin image_picker_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_windows-0.2.2\
+[   +4 ms] Found plugin file_selector_windows at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_windows-0.9.3+5\
+[   +3 ms] Found plugin image_picker_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_macos-0.2.2+1\
+[   +1 ms] Found plugin file_selector_macos at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_macos-0.9.5\
+[   +2 ms] Found plugin image_picker_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_linux-0.2.2\
+[   +2 ms] Found plugin file_selector_linux at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_selector_linux-0.9.4\
+[   +2 ms] Found plugin image_picker_ios at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_ios-0.8.13+6\
+[   +4 ms] Found plugin image_picker_for_web at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_for_web-3.1.1\
+[   +4 ms] Found plugin image_picker_android at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\image_picker_android-0.8.13+17\
+[   +2 ms] Found plugin flutter_plugin_android_lifecycle at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_plugin_android_lifecycle-2.0.35\
+[  +13 ms] Found plugin file_picker at C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-5.5.0\
+[   +2 ms] Package file_picker:linux references file_picker:linux as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: linux: default_package: file_picker` or add an inline implementation to file_picker via `platforms: linux:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:macos references file_picker:macos as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: macos: default_package: file_picker` or add an inline implementation to file_picker via `platforms: macos:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[        ] Package file_picker:windows references file_picker:windows as the default plugin, but it does not provide an inline implementation.
+           Ask the maintainers of file_picker to either avoid referencing a default implementation via `platforms: windows: default_package: file_picker` or add an inline implementation to file_picker via `platforms: windows:` `pluginClass` or `dartPluginClass`.
+System.Management.Automation.RemoteException
+[   +8 ms] web_entrypoint: Complete
+[  +23 ms] dart2js: Starting due to {}
+[   +8 ms] executing: C:\Cflutter\flutter\bin\cache\dart-sdk\bin\dart.exe compile js --platform-binaries=C:\Cflutter\flutter\bin\cache\flutter_web_sdk\kernel --invoker=flutter_tool -Ddart.vm.product=true -DFLUTTER_VERSION=3.41.1 -DFLUTTER_CHANNEL=stable -DFLUTTER_GIT_URL=https://github.com/flutter/flutter.git -DFLUTTER_FRAMEWORK_REVISION=582a0e7c55 -DFLUTTER_ENGINE_REVISION=3452d735bd -DFLUTTER_DART_VERSION=3.11.0 -DFLUTTER_WEB_USE_SKIA=true -DFLUTTER_WEB_USE_SKWASM=false -DFLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.com/flutter-canvaskit/3452d735bd38224ef2db85ca763d862d6326b17f/ --native-null-assertions --no-source-maps -O4 --minify -o C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\app.dill --packages=C:\frotacheck\.dart_tool\package_config.json --cfe-only C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\main.dart
+[+11480 ms] Compiled 47,120,537 input bytes (39,090,870 characters source) to 35,129,008 kernel bytes in 10.9 seconds
+            Dart file .dart_tool/flutter_build/9ed661f448094063e9351955b3332028/main.dart compiled to dill: .dart_tool/flutter_build/9ed661f448094063e9351955b3332028/app.dill.
+[   +1 ms] executing: C:\Cflutter\flutter\bin\cache\dart-sdk\bin\dart.exe compile js --platform-binaries=C:\Cflutter\flutter\bin\cache\flutter_web_sdk\kernel --invoker=flutter_tool -Ddart.vm.product=true -DFLUTTER_VERSION=3.41.1 -DFLUTTER_CHANNEL=stable -DFLUTTER_GIT_URL=https://github.com/flutter/flutter.git -DFLUTTER_FRAMEWORK_REVISION=582a0e7c55 -DFLUTTER_ENGINE_REVISION=3452d735bd -DFLUTTER_DART_VERSION=3.11.0 -DFLUTTER_WEB_USE_SKIA=true -DFLUTTER_WEB_USE_SKWASM=false -DFLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.com/flutter-canvaskit/3452d735bd38224ef2db85ca763d862d6326b17f/ --native-null-assertions --no-source-maps -O4 --minify -o C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\main.dart.js C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\app.dill
+[+22911 ms] /C:/Cflutter/flutter/packages/flutter/lib/src/widgets/widget_state.dart:1054:9:
+            Hint: This 'noSuchMethod' implementation is guaranteed to throw an exception. The generated code will be smaller if it is rewritten.
+            Rewrite to 'noSuchMethod(Invocation i) => super.noSuchMethod(i);'.
+              Never noSuchMethod(Invocation invocation) {
+                    ^
+            Compiled 52,316,728 input bytes (9,201,965 characters source) to 3,486,862 characters JavaScript in 22.6 seconds
+[  +43 ms] dart2js: Complete
+[+1615 ms] web_release_bundle: Starting due to {}
+[ +120 ms] Manifest contained wildcard assets. Inserting missing file into build graph to force rerun. for more information see #56466.
+[  +34 ms] shaderc command: [C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\impellerc.exe, --sksl, --iplr, --json, --sl=C:\frotacheck\build\web\assets\shaders/ink_sparkle.frag, --spirv=C:\frotacheck\build\web\assets\shaders/ink_sparkle.frag.spirv, --input=C:\Cflutter\flutter\packages\flutter\lib\src\material\shaders\ink_sparkle.frag, --input-type=frag, --include=C:\Cflutter\flutter\packages\flutter\lib\src\material\shaders, --include=C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\shader_lib]
+[   +1 ms] shaderc command: [C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\impellerc.exe, --sksl, --iplr, --json, --sl=C:\frotacheck\build\web\assets\shaders/stretch_effect.frag, --spirv=C:\frotacheck\build\web\assets\shaders/stretch_effect.frag.spirv, --input=C:\Cflutter\flutter\packages\flutter\lib\src\material\shaders\stretch_effect.frag, --input-type=frag, --include=C:\Cflutter\flutter\packages\flutter\lib\src\material\shaders, --include=C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\shader_lib]
+[  +47 ms] Running command: C:\Cflutter\flutter\bin\cache\dart-sdk\bin\dart.exe C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\const_finder.dart.snapshot --kernel-file C:\frotacheck\.dart_tool\flutter_build\9ed661f448094063e9351955b3332028\app.dill --class-library-uri package:flutter/src/widgets/icon_data.dart --class-name IconData --annotation-class-name _StaticIconProvider --annotation-class-library-uri package:flutter/src/widgets/icon_data.dart
+[+1741 ms] Expected to find fontFamily for constant IconData with codepoint: 128842.0, but found fontFamily: null. This usually means you are relying on the system font. Alternatively, font families in an IconData class can be provided in the assets section of your pubspec.yaml, or you are missing "uses-material-design: true".
+[        ] Expected to find fontFamily for constant IconData with codepoint: 9658.0, but found fontFamily: null. This usually means you are relying on the system font. Alternatively, font families in an IconData class can be provided in the assets section of your pubspec.yaml, or you are missing "uses-material-design: true".
+[   +1 ms] Running font-subset: C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\font-subset.exe C:\frotacheck\build\web\assets\packages/cupertino_icons/assets/CupertinoIcons.ttf C:\Users\Andressa\AppData\Local\Pub\Cache\hosted\pub.dev\cupertino_icons-1.0.9\assets\CupertinoIcons.ttf, using codepoints 62468 62730 62717 62419 62415 62629 62318 optional:32
+[   +1 ms] Running font-subset: C:\Cflutter\flutter\bin\cache\artifacts\engine\windows-x64\font-subset.exe C:\frotacheck\build\web\assets\fonts/MaterialIcons-Regular.otf C:\Cflutter\flutter\bin\cache\artifacts\material_fonts\MaterialIcons-Regular.otf, using codepoints 57898 58286 58062 59120 57490 62832 57706 58332 57502 57501 57496 57694 57695 57657 57882 57504 61453 57634 57498 57926 57704 57491 61061 61060 62834 62833 59283 59282 57499 57500 61069 61068 62842 62841 59291 59290 58011 58012 61575 61576 63348 63349 59797 59798 58372 58370 61930 61927 63708 63705 60157 60154 58771 58189 62328 61752 983402 63526 60555 59975 58814 58813 57846 57862 58727 57686 61764 57402 58449 57777 57815 58513 58260 984772 57622 57548 57691 58446 58637 57791 57809 58751 59083 58003 984763 57984 57415 57917 57623 57522 58278 57648 58704 58729 58197 57717 57689 57965 57521 985015 58245 58183 57785 58873 57475 57857 58283 58848 57416 58669 optional:32
+[  +31 ms] Font asset "CupertinoIcons.ttf" was tree-shaken, reducing it from 257628 to 1472 bytes (99.4% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+[   +7 ms] Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 13448 bytes (99.2% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+[  +26 ms] web_release_bundle: Complete
+[+1725 ms] web_service_worker: Starting due to {}
+[   +5 ms] web_service_worker: Complete
+[ +471 ms] Persisting file store
+[  +12 ms] Done persisting file store
+[  +26 ms] Compiling lib\main.dart for the Web... (completed in 40,8s)
+[   +1 ms] ÔêÜ Built build\web
+[  +29 ms] "flutter web" took 41.745ms.
+[  +88 ms] Running 1 shutdown hook
+[   +1 ms] Shutdown hooks complete
+[ +154 ms] exiting with code 0

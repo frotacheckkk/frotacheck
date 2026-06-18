@@ -206,14 +206,16 @@ class _VeiculosPageState extends State<VeiculosPage> {
         ],
       ),
     );
-    if (conf != true) return;
+    if (!mounted || conf != true) return;
     try {
       await supabase.from('vehicles').delete().eq('id', id);
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Veículo excluído')));
       await carregarVeiculos();
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Erro ao excluir: $e')));

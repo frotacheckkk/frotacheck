@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,7 +26,7 @@ class _ChecklistRetornoPageState extends State<ChecklistRetornoPage> {
   final imagePicker = ImagePicker();
 
   late Map<String, bool> itensVerificados;
-  List<File> fotosCapturadas = [];
+  List<Uint8List> fotosCapturadas = [];
   bool isLoading = false;
   final TextEditingController observacoesController = TextEditingController();
   final TextEditingController kmFinalController = TextEditingController();
@@ -57,9 +57,10 @@ class _ChecklistRetornoPageState extends State<ChecklistRetornoPage> {
     try {
       final photo = await imagePicker.pickImage(source: ImageSource.camera);
       if (photo != null) {
+        final bytes = await photo.readAsBytes();
         if (!mounted) return;
         setState(() {
-          fotosCapturadas.add(File(photo.path));
+          fotosCapturadas.add(bytes);
         });
       }
     } catch (e) {
@@ -106,7 +107,13 @@ class _ChecklistRetornoPageState extends State<ChecklistRetornoPage> {
         final fileName =
             'checklist_retorno_${widget.veiculoId}_${DateTime.now().millisecondsSinceEpoch}_$i.jpg';
 
-        await supabase.storage.from('checklists').upload(fileName, arquivo);
+        await supabase.storage
+            .from('checklists')
+            .uploadBinary(
+              fileName,
+              arquivo,
+              fileOptions: const FileOptions(upsert: true),
+            );
         final url = supabase.storage.from('checklists').getPublicUrl(fileName);
         fotoUrls.add(url);
       }
@@ -276,7 +283,7 @@ class _ChecklistRetornoPageState extends State<ChecklistRetornoPage> {
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(color: AppColors.primary),
                               ),
-                              child: Image.file(
+                              child: Image.memory(
                                 fotosCapturadas[index],
                                 fit: BoxFit.cover,
                               ),

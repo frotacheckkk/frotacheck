@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -236,7 +236,7 @@ class _NovaMultaPageState extends State<NovaMultaPage> {
   String? veiculoSelecionado;
   String? motoristaSelecioando;
   String? tipoSelecionado;
-  File? fotoSelecionada;
+  Uint8List? fotoBytes;
   bool isLoading = false;
 
   final valorkController = TextEditingController();
@@ -277,9 +277,10 @@ class _NovaMultaPageState extends State<NovaMultaPage> {
   Future<void> _selecionarFoto() async {
     final foto = await imagePicker.pickImage(source: ImageSource.camera);
     if (foto != null) {
+      final bytes = await foto.readAsBytes();
       if (!mounted) return;
       setState(() {
-        fotoSelecionada = File(foto.path);
+        fotoBytes = bytes;
       });
     }
   }
@@ -299,11 +300,15 @@ class _NovaMultaPageState extends State<NovaMultaPage> {
 
     try {
       String? fotoUrl;
-      if (fotoSelecionada != null) {
+      if (fotoBytes != null) {
         final fileName = 'multa_${DateTime.now().millisecondsSinceEpoch}.jpg';
         await supabase.storage
             .from('multas')
-            .upload(fileName, fotoSelecionada!);
+            .uploadBinary(
+              fileName,
+              fotoBytes!,
+              fileOptions: const FileOptions(upsert: true),
+            );
         fotoUrl = supabase.storage.from('multas').getPublicUrl(fileName);
       }
 
@@ -470,25 +475,19 @@ class _NovaMultaPageState extends State<NovaMultaPage> {
             const SizedBox(height: 16),
 
             // Foto
-            if (fotoSelecionada != null)
+            if (fotoBytes != null)
               Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: AppColors.primary),
                 ),
-                child: Image.file(
-                  fotoSelecionada!,
-                  height: 200,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.memory(fotoBytes!, height: 200, fit: BoxFit.cover),
               ),
             ElevatedButton.icon(
               onPressed: _selecionarFoto,
               icon: const Icon(Icons.camera_alt),
-              label: Text(
-                fotoSelecionada != null ? 'Trocar Foto' : 'Adicionar Foto',
-              ),
+              label: Text(fotoBytes != null ? 'Trocar Foto' : 'Adicionar Foto'),
             ),
             const SizedBox(height: 24),
 

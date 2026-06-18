@@ -81,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
+    if (!mounted) return;
     if (shouldSend != true) return;
     final email = forgotEmailController.text.trim();
     if (email.isEmpty) {
@@ -95,11 +96,13 @@ class _LoginPageState extends State<LoginPage> {
       await (Supabase.instance.client.auth as dynamic).resetPasswordForEmail(
         email,
       );
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Email de recuperação enviado')),
       );
     } catch (e) {
       debugPrint('Reset password error: $e');
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -187,7 +190,6 @@ class _LoginPageState extends State<LoginPage> {
           SafeArea(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 760;
                 return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.symmetric(
@@ -250,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
           width: 1.7,
         ),
         image: DecorationImage(
-          image: NetworkImage(_backgroundImageUrl),
+          image: AssetImage(_backgroundAsset),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             Colors.black.withOpacity(0.64),
@@ -602,78 +604,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildFeatureRow() {
-    return Wrap(
-      spacing: 16,
-      runSpacing: 16,
-      children: [
-        _buildFeatureItem(
-          Icons.shield,
-          'SEGURANÇA',
-          'Dados protegidos com criptografia avançada',
-        ),
-        _buildFeatureItem(
-          Icons.insights,
-          'INTELIGÊNCIA',
-          'Insights e relatórios para decisões rápidas',
-        ),
-        _buildFeatureItem(
-          Icons.wifi,
-          'CONEXÃO',
-          'Acesso em tempo real em qualquer dispositivo',
-        ),
-        _buildFeatureItem(
-          Icons.speed,
-          'EFICIÊNCIA',
-          'Controle mais rápido e menos burocrático',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFeatureItem(IconData icon, String title, String subtitle) {
-    return SizedBox(
-      width: 260,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: AppColors.secondary.withOpacity(0.14)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.secondary.withOpacity(0.14),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(icon, color: AppColors.secondary, size: 22),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              subtitle,
-              style: const TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 13,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

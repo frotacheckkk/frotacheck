@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -289,7 +288,7 @@ class _NovoDocumentoPageState extends State<NovoDocumentoPage> {
   String? tipoSelecionado;
   String? veiculoSelecionado;
   String? motoristaSelecioando;
-  File? arquivoSelecionado;
+  PlatformFile? arquivoSelecionado;
   bool isLoading = false;
 
   final descricaoController = TextEditingController();
@@ -317,11 +316,11 @@ class _NovoDocumentoPageState extends State<NovoDocumentoPage> {
   }
 
   Future<void> _selecionarArquivo() async {
-    final resultado = await FilePicker.platform.pickFiles();
-    if (resultado != null) {
+    final resultado = await FilePicker.platform.pickFiles(withData: true);
+    if (resultado != null && resultado.files.isNotEmpty) {
       if (!mounted) return;
       setState(() {
-        arquivoSelecionado = File(resultado.files.single.path!);
+        arquivoSelecionado = resultado.files.single;
       });
     }
   }
@@ -344,7 +343,11 @@ class _NovoDocumentoPageState extends State<NovoDocumentoPage> {
       final fileName = 'documento_${DateTime.now().millisecondsSinceEpoch}';
       await supabase.storage
           .from('documentos')
-          .upload(fileName, arquivoSelecionado!);
+          .uploadBinary(
+            fileName,
+            arquivoSelecionado!.bytes!,
+            fileOptions: const FileOptions(upsert: true),
+          );
       final fileUrl = supabase.storage
           .from('documentos')
           .getPublicUrl(fileName);
@@ -522,9 +525,7 @@ class _NovoDocumentoPageState extends State<NovoDocumentoPage> {
                   children: [
                     const Icon(Icons.check_circle, color: Colors.green),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(arquivoSelecionado!.path.split('/').last),
-                    ),
+                    Expanded(child: Text(arquivoSelecionado!.name)),
                   ],
                 ),
               )
