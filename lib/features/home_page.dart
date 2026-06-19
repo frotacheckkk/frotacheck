@@ -19,7 +19,7 @@ import '../../shared/widgets/frota_logo.dart';
 import '../../shared/widgets/menu_card.dart';
 import '../core/theme/app_theme.dart';
 import '../../core/services/auth_service.dart';
-import '../../core/utils/date_utils.dart' as app_date_utils;
+import '../core/utils/date_utils.dart' as app_date_utils;
 
 // Utilities extracted for testing and reuse
 String getProfileDisplayName({
