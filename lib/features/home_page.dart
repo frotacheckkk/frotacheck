@@ -14,11 +14,10 @@ import '../home/pneus/pneus_page.dart';
 import '../home/relatorios/relatorios_page.dart';
 import '../home/viagens/viagens_page.dart';
 import '../home/veiculos/veiculos_page.dart';
-import '../../shared/widgets/app_logo.dart';
-import '../../shared/widgets/frota_logo.dart';
-import '../../shared/widgets/menu_card.dart';
+import '../shared/widgets/app_logo.dart';
+import '../shared/widgets/frota_logo.dart';
+import '../shared/widgets/menu_card.dart';
 import '../core/theme/app_theme.dart';
-import '../../core/services/auth_service.dart';
 import '../core/utils/date_utils.dart' as app_date_utils;
 
 // Utilities extracted for testing and reuse
@@ -230,34 +229,42 @@ class _HomePageState extends State<HomePage> {
     setState(() => carregando = true);
 
     try {
-      final veiculos = await _safeSelect('vehicles');
-      final motoristas = await _safeSelect('drivers');
+      final results = await Future.wait([
+        _safeSelect('vehicles'), // 0
+        _safeSelect('drivers'), // 1
+        supabase
+            .from('fuelings')
+            .select('*, vehicles (plate), drivers (name)'), // 2
+        _safeSelect('manutencoes'), // 3
+        _safeSelect('multas'), // 4
+        _safeSelect('pneus'), // 5
+        _safeSelect('occurrences'), // 6
+        _safeSelect('ocorrencias'), // 7
+        _safeSelect('documentos'), // 8
+        supabase
+            .from('fuelings')
+            .select(
+              'id, liters, total_value, fuel_date, fuel_time, vehicles (plate), drivers (name)',
+            )
+            .order('created_at', ascending: false)
+            .limit(3), // 9
+      ]);
 
-      final abastecimentosResponse = await supabase
-          .from('fuelings')
-          .select('*, vehicles (plate), drivers (name)');
-      final abastecimentos = (abastecimentosResponse as List)
-          .map((e) => Map<String, dynamic>.from(e as Map<String, dynamic>))
+      final veiculos = results[0];
+      final motoristas = results[1];
+      final abastecimentos = results[2]
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      final manutencoes = results[3];
+      final multas = results[4];
+      final pneus = results[5];
+      final occurrences = results[6];
+      final ocorrencias = results[7];
+      final documentos = results[8];
+      final recents = results[9]
+          .map((e) => Map<String, dynamic>.from(e))
           .toList();
 
-      final manutencoes = await _safeSelect('manutencoes');
-      final multas = await _safeSelect('multas');
-      final pneus = await _safeSelect('pneus');
-      final occurrences = await _safeSelect('occurrences');
-      final ocorrencias = await _safeSelect('ocorrencias');
-
-      final recentsResponse = await supabase
-          .from('fuelings')
-          .select(
-            'id, liters, total_value, fuel_date, fuel_time, vehicles (plate), drivers (name)',
-          )
-          .order('created_at', ascending: false)
-          .limit(3);
-      final recents = (recentsResponse as List)
-          .map((e) => Map<String, dynamic>.from(e as Map<String, dynamic>))
-          .toList();
-
-      final documentos = await _safeSelect('documentos');
       final allOcorrencias = [...occurrences, ...ocorrencias];
 
       final dashboardTotalGasto = _calculateTotalCost(
@@ -346,7 +353,7 @@ class _HomePageState extends State<HomePage> {
           status == 'pendente' ||
           status == 'ativo';
     }).length;
-    return active > 0 ? active : manutencoes.length;
+    return active > 0 ? active : 0;
   }
 
   double _calculateTotalCost(
@@ -442,10 +449,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     if (built.isEmpty) {
-      built.addAll([
-        {'title': 'Troca de óleo vencida', 'subtitle': 'Verificar 3 veículos'},
-        {'title': 'Checklists pendentes', 'subtitle': '7 veículos'},
-      ]);
+      return built;
     }
 
     return built.take(6).toList();
@@ -479,7 +483,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    monthlyFuelLabels = labels;
+    monthlyFuelLabels = List.unmodifiable(labels);
     return spots;
   }
 
@@ -561,13 +565,7 @@ class _HomePageState extends State<HomePage> {
       categorias[chave] = (categorias[chave] ?? 0) + 1;
     }
     if (categorias.isEmpty) {
-      categorias.addAll({
-        'Acidente': 3,
-        'Falha Mecânica': 2,
-        'Pane': 2,
-        'Multa': 1,
-        'Outros': 1,
-      });
+      return categorias;
     }
     return categorias;
   }
@@ -594,21 +592,7 @@ class _HomePageState extends State<HomePage> {
     }).toList();
 
     ranking.sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
-    if (ranking.length >= 5 &&
-        ranking.any((item) => item['score'] as int > 0)) {
-      return ranking.take(5).toList();
-    }
-
-    final defaults = [
-      {'name': 'Marcos Silva', 'score': 98},
-      {'name': 'João Santos', 'score': 92},
-      {'name': 'Carlos Lima', 'score': 87},
-      {'name': 'Pedro Oliveira', 'score': 75},
-      {'name': 'Lucas Almeida', 'score': 70},
-    ];
-    final combined = [...ranking, ...defaults]
-      ..sort((a, b) => (b['score'] as int).compareTo(a['score'] as int));
-    return combined.take(5).toList();
+    return ranking.take(5).toList();
   }
 
   List<Map<String, dynamic>> _buildTopCostVehicles(
@@ -676,44 +660,6 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const FrotaLogo(compact: false),
-        actions: [
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-          IconButton(
-            icon: const Icon(Icons.notifications_none),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ConfiguracoesPage()),
-              );
-            },
-          ),
-          const SizedBox(width: 8),
-          IconButton(icon: const Icon(Icons.filter_list), onPressed: () {}),
-          const SizedBox(width: 8),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.add, size: 18),
-            label: const Text('Novo registro'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.secondary,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            ),
-          ),
-          const SizedBox(width: 16),
-        ],
-        elevation: 0,
-        backgroundColor: AppColors.surface,
-      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -722,207 +668,202 @@ class _HomePageState extends State<HomePage> {
                 final showSidebar = constraints.maxWidth > 1200;
                 final width = constraints.maxWidth;
                 return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     if (showSidebar)
                       Container(
                         width: 300,
-                        margin: const EdgeInsets.only(
-                          left: 20,
-                          top: 20,
-                          bottom: 20,
-                        ),
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: AppColors.surface,
-                          borderRadius: BorderRadius.circular(32),
-                          border: Border.all(color: AppColors.border),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.16),
-                              blurRadius: 30,
-                              offset: const Offset(0, 18),
-                            ),
-                          ],
+                        color: AppColors.surface,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24,
+                          horizontal: 16,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const AppLogo(compact: false),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Gestão de frota empresarial',
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
+                            const SizedBox(height: 18),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    _buildSidebarItem(
+                                      Icons.dashboard,
+                                      'Dashboard',
+                                      () {},
+                                      active: true,
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.directions_car,
+                                      'Veículos',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const VeiculosPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.person,
+                                      'Motoristas',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const MotoristasPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.local_gas_station,
+                                      'Abastecimentos',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const AbastecimentosPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.build,
+                                      'Manutenções',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const ManutencoesPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.checklist,
+                                      'Checklists',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SelecionarVeiculoChecklistPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.report_gmailerrorred,
+                                      'Ocorrências',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const AlertasPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.tire_repair,
+                                      'Pneus',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const PneusPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.receipt_long,
+                                      'Multas',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const MultasPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.description,
+                                      'Documentos',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const DocumentosPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.bar_chart,
+                                      'Relatórios',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const RelatoriosPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.notification_important,
+                                      'Alertas',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => const AlertasPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                    _buildSidebarItem(
+                                      Icons.settings,
+                                      'Configurações',
+                                      () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                const ConfiguracoesPage(),
+                                          ),
+                                        );
+                                        carregarDashboard();
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 28),
-                            _buildSidebarItem(
-                              Icons.dashboard,
-                              'Visão Geral',
-                              () {},
-                              active: true,
-                            ),
-                            _buildSidebarItem(
-                              Icons.directions_car,
-                              'Veículos',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const VeiculosPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.person,
-                              'Motoristas',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const MotoristasPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.local_gas_station,
-                              'Abastecimentos',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const AbastecimentosPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.tire_repair,
-                              'Pneus',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const PneusPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.build,
-                              'Manutenções',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const ManutencoesPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.bar_chart,
-                              'Relatórios',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const RelatoriosPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.checklist,
-                              'Checklist',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        const SelecionarVeiculoChecklistPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.notification_important,
-                              'Alertas',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const AlertasPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.receipt_long,
-                              'Multas',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const MultasPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.description,
-                              'Documentos',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const DocumentosPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.directions,
-                              'Viagens',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const ViagensPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            _buildSidebarItem(
-                              Icons.settings,
-                              'Configurações',
-                              () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const ConfiguracoesPage(),
-                                  ),
-                                );
-                                carregarDashboard();
-                              },
-                            ),
-                            const SizedBox(height: 18),
+                            const SizedBox(height: 12),
                             const Divider(color: AppColors.border),
                             const SizedBox(height: 12),
                             _buildProfileCard(),
@@ -930,28 +871,36 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: carregarDashboard,
-                        child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 20,
-                              bottom: 20,
-                              left: showSidebar ? 20 : 20,
-                              right: 20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                _buildHeader(width),
-                                const SizedBox(height: 24),
-                                _buildTopKpiRow(width),
-                                const SizedBox(height: 24),
-                                _buildChartsRow(width),
-                                const SizedBox(height: 24),
-                                _buildBottomPanels(width),
-                              ],
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.background,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: RefreshIndicator(
+                            onRefresh: carregarDashboard,
+                            child: SingleChildScrollView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 20,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    _buildHeader(width),
+                                    const SizedBox(height: 24),
+                                    _buildTopKpiRow(width),
+                                    const SizedBox(height: 24),
+                                    _buildChartsRow(width),
+                                    const SizedBox(height: 24),
+                                    _buildBottomPanels(width),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -1317,29 +1266,34 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
           decoration: BoxDecoration(
-            color: active
-                ? AppColors.secondary.withOpacity(0.18)
-                : AppColors.surface,
-            borderRadius: BorderRadius.circular(20),
+            color: active ? AppColors.secondary : AppColors.surface,
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: active ? AppColors.secondary : AppColors.border,
+              color: active
+                  ? AppColors.secondary.withOpacity(0.9)
+                  : AppColors.border,
             ),
+            boxShadow: active
+                ? [
+                    BoxShadow(
+                      color: AppColors.secondary.withOpacity(0.22),
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ]
+                : null,
           ),
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: active ? AppColors.secondary : Colors.white,
-                size: 22,
-              ),
+              Icon(icon, color: Colors.white, size: 22),
               const SizedBox(width: 14),
               Expanded(
                 child: Text(
                   label,
                   style: TextStyle(
-                    color: active ? AppColors.secondary : Colors.white,
+                    color: Colors.white,
                     fontSize: 15,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
@@ -1351,40 +1305,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildProfileCard() {
-    final auth = AuthService();
-    final supaUser = supabase.auth.currentUser;
-    final metadata = (supaUser?.userMetadata ?? {}) as Map<String, dynamic>?;
-
-    final name = getProfileDisplayName(
-      authServiceUser: auth.currentUser as Map<String, dynamic>?,
-      metadata: metadata,
-      supaEmail: supaUser?.email,
-    );
-    final email = auth.currentUser?.email ?? supaUser?.email ?? '';
-
-    final photoUrl = getProfilePhotoUrl(metadata, supabaseClient: supabase);
-
-    final initials = name
-        .split(' ')
-        .where((s) => s.isNotEmpty)
-        .map((s) => s[0])
-        .take(2)
-        .join();
-
-    Widget avatar = photoUrl != null && photoUrl.isNotEmpty
-        ? CircleAvatar(radius: 28, backgroundImage: NetworkImage(photoUrl))
-        : CircleAvatar(
-            radius: 28,
-            backgroundColor: AppColors.secondary,
-            child: Text(
-              initials.toUpperCase(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          );
-
+    // Perfil fixo conforme especificação
     return InkWell(
       onTap: () async {
         await Navigator.push(
@@ -1393,33 +1314,37 @@ class _HomePageState extends State<HomePage> {
         );
         carregarDashboard();
       },
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: AppColors.surface,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.border),
         ),
         child: Row(
           children: [
-            avatar,
+            const CircleAvatar(
+              radius: 26,
+              backgroundColor: AppColors.secondary,
+              child: Icon(Icons.person, color: Colors.white),
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text(
-                    name.toString(),
-                    style: const TextStyle(
+                    'Fernando Admin',
+                    style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Text(
-                    email.toString(),
-                    style: const TextStyle(
+                    'Administrador',
+                    style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 13,
                     ),
@@ -1427,10 +1352,38 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+            const Icon(
+              Icons.keyboard_arrow_down,
+              color: AppColors.textSecondary,
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDashboardCard({
+    required Widget child,
+    EdgeInsetsGeometry padding = const EdgeInsets.all(20),
+    BorderRadiusGeometry borderRadius = const BorderRadius.all(
+      Radius.circular(12),
+    ),
+  }) {
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: borderRadius,
+        border: Border.all(color: AppColors.border.withOpacity(0.9)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.10),
+            blurRadius: 14,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: child,
     );
   }
 
@@ -1556,22 +1509,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  String _currentDateRangeLabel() {
+    final now = DateTime.now();
+    final firstDay = DateTime(now.year, now.month, 1);
+    final lastDay = DateTime(now.year, now.month + 1, 0);
+    String pad(int n) => n.toString().padLeft(2, '0');
+    return '${pad(firstDay.day)}/${pad(firstDay.month)}/${firstDay.year} - ${pad(lastDay.day)}/${pad(lastDay.month)}/${lastDay.year}';
+  }
+
   Widget _buildHeader(double width) {
-    return Container(
-      width: double.infinity,
+    return _buildDashboardCard(
       padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: AppColors.border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.18),
-            blurRadius: 28,
-            offset: const Offset(0, 14),
-          ),
-        ],
-      ),
+      borderRadius: BorderRadius.circular(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1583,20 +1532,19 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                      'Visão geral da frota',
+                      'Dashboard',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 28,
+                        fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 6),
                     Text(
-                      'Acompanhe o desempenho da frota, custos e alertas em um único painel.',
+                      'Visão geral da frota',
                       style: TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 15,
-                        height: 1.75,
                       ),
                     ),
                   ],
@@ -1619,16 +1567,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.calendar_today,
                           size: 16,
                           color: AppColors.textSecondary,
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
-                          '01/05/2024 - 31/05/2024',
-                          style: TextStyle(color: AppColors.textSecondary),
+                          _currentDateRangeLabel(),
+                          style: const TextStyle(
+                            color: AppColors.textSecondary,
+                          ),
                         ),
                       ],
                     ),
@@ -1653,6 +1603,8 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.secondary,
+                      shadowColor: AppColors.secondary.withOpacity(0.6),
+                      elevation: 12,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -1783,12 +1735,12 @@ class _HomePageState extends State<HomePage> {
   Widget _buildChartsRow(double width) {
     final showRow = width > 1000;
     final children = [
-      Expanded(child: SizedBox(height: 320, child: _buildConsumptionChart())),
+      Expanded(child: SizedBox(height: 440, child: _buildConsumptionChart())),
       const SizedBox(width: 16),
-      Expanded(child: SizedBox(height: 320, child: _buildCostPieChart())),
+      Expanded(child: SizedBox(height: 440, child: _buildCostPieChart())),
       const SizedBox(width: 16),
       Expanded(
-        child: SizedBox(height: 320, child: _buildOccurrencesBarChart()),
+        child: SizedBox(height: 440, child: _buildOccurrencesBarChart()),
       ),
     ];
     return showRow
@@ -1796,29 +1748,36 @@ class _HomePageState extends State<HomePage> {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 320, child: _buildConsumptionChart()),
+              SizedBox(height: 440, child: _buildConsumptionChart()),
               const SizedBox(height: 16),
-              SizedBox(height: 320, child: _buildCostPieChart()),
+              SizedBox(height: 440, child: _buildCostPieChart()),
               const SizedBox(height: 16),
-              SizedBox(height: 320, child: _buildOccurrencesBarChart()),
+              SizedBox(height: 440, child: _buildOccurrencesBarChart()),
             ],
           );
   }
 
   Widget _buildConsumptionChart() {
-    final spots = monthlyFuelSpots.isNotEmpty
-        ? monthlyFuelSpots
-        : [
-            FlSpot(0, 2.5),
-            FlSpot(1, 3.2),
-            FlSpot(2, 2.8),
-            FlSpot(3, 3.6),
-            FlSpot(4, 3.3),
-            FlSpot(5, 3.9),
-          ];
+    final spots = monthlyFuelSpots;
     final labels = monthlyFuelLabels.isNotEmpty
         ? monthlyFuelLabels
         : ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+    if (spots.isEmpty) {
+      return Container(
+        padding: const EdgeInsets.all(22),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: const Center(
+          child: Text(
+            'Nenhum dado de combustivel registrado',
+            style: TextStyle(color: AppColors.textSecondary),
+          ),
+        ),
+      );
+    }
     final maxY = spots.isNotEmpty
         ? spots.map((s) => s.y).reduce((a, b) => a > b ? a : b) * 1.2
         : 5.0;
@@ -1826,7 +1785,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.border),
       ),
       child: Column(
@@ -1846,8 +1805,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(color: AppColors.textSecondary),
           ),
           const SizedBox(height: 20),
-          SizedBox(
-            height: 320,
+          Expanded(
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(
@@ -1970,25 +1928,13 @@ class _HomePageState extends State<HomePage> {
                   '${entry.value.key} — ${percent.toStringAsFixed(0)}% • R\$ ${value.toStringAsFixed(2)}',
             };
           }).toList()
-        : [
-            {
-              'color': AppColors.secondary,
-              'label': 'Abastecimento — 60% • R\$ 0,00',
-            },
-            {
-              'color': AppColors.success,
-              'label': 'Manutenção — 20% • R\$ 0,00',
-            },
-            {'color': AppColors.warning, 'label': 'Pneus — 10% • R\$ 0,00'},
-            {'color': AppColors.danger, 'label': 'Multas — 6% • R\$ 0,00'},
-            {'color': AppColors.primary, 'label': 'Outros — 4% • R\$ 0,00'},
-          ];
+        : <Map<String, dynamic>>[];
 
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.border),
       ),
       child: Column(
@@ -2008,8 +1954,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(color: AppColors.textSecondary),
           ),
           const SizedBox(height: 20),
-          SizedBox(
-            height: 320,
+          Expanded(
             child: Row(
               children: [
                 Expanded(
@@ -2054,7 +1999,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.border),
       ),
       child: Column(
@@ -2172,7 +2117,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.border),
       ),
       child: Column(
@@ -2274,7 +2219,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.border),
       ),
       child: Column(
@@ -2344,7 +2289,7 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.border),
       ),
       child: Column(

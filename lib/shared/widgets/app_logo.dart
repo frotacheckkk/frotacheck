@@ -15,38 +15,51 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // tenta carregar imagem de logo em assets/images/logo_shield.png
+    final logoAsset = 'assets/images/logo_shield.png';
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: iconSize + 10,
-          height: iconSize + 10,
+          width: iconSize + 14,
+          height: iconSize + 16,
           decoration: BoxDecoration(
-            color: AppColors.secondary,
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.18),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-          child: Icon(
-            Icons.local_shipping,
-            size: iconSize,
-            color: Colors.white,
+          child: Image.asset(
+            logoAsset,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) => Container(
+              color: AppColors.secondary,
+              child: Icon(Icons.shield, size: iconSize, color: Colors.white),
+            ),
           ),
         ),
         if (!compact) ...[
-          SizedBox(width: spacing),
+          SizedBox(width: spacing - 2),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
-                'FrotaCheck',
+                'FROTA CHECK',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  letterSpacing: 0.6,
                 ),
               ),
               SizedBox(height: 2),
               Text(
-                'Gestão de frota empresarial',
+                'Gestão de frota',
                 style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],

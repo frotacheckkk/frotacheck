@@ -57,6 +57,15 @@ flutter pub get
 # Update lib/core/config/supabase_config.dart with your credentials
 ```
 
+### Imagens do app (logo e avatar)
+
+Coloque imagens em `assets/images/` e confirme que `pubspec.yaml` lista `assets/images/` em `flutter.assets:` (já está configurado).
+
+- `assets/images/logo_shield.png` — será usado no topo da sidebar quando presente.
+- `assets/images/avatar_fernando.png` — será exibido no card de perfil no rodapé da sidebar quando presente.
+
+Se as imagens não estiverem presentes, o app usa ícones ou iniciais como fallback.
+
 ### Running the App
 
 **Development (Web)**

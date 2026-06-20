@@ -4,16 +4,18 @@ class AppColors {
   static const primary = Color(0xFF0D47A1);
   static const brand = Color(0xFF0B3F72);
   static const secondary = Color(0xFF00B8D4);
+  // Neon / destaque mais brilhante usado para ações importantes
+  static const neon = Color(0xFF00E5FF);
   static const info = Color(0xFF2563EB);
   static const success = Color(0xFF1AA251);
   static const warning = Color(0xFFF59E0B);
   static const danger = Color(0xFFEF4444);
 
-  static const background = Color(0xFF04101C);
-  static const backgroundSoft = Color(0xFF071827);
-  static const surface = Color(0xFF0F1F33);
-  static const surfaceVariant = Color(0xFF121F33);
-  static const border = Color(0xFF173150);
+  static const background = Color(0xFF030A16);
+  static const backgroundSoft = Color(0xFF061221);
+  static const surface = Color(0xFF0B1528);
+  static const surfaceVariant = Color(0xFF091324);
+  static const border = Color(0xFF13273A);
 
   static const textPrimary = Color(0xFFF8FAFC);
   static const textSecondary = Color(0xFF94A3B8);
@@ -21,7 +23,7 @@ class AppColors {
 }
 
 class AppTheme {
-  static ThemeData lightTheme = ThemeData(
+  static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: ColorScheme.fromSeed(
@@ -53,9 +55,9 @@ class AppTheme {
     ),
     cardTheme: CardThemeData(
       color: AppColors.surface,
-      elevation: 6,
-      shadowColor: Colors.black.withOpacity(0.35),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      elevation: 4,
+      shadowColor: Colors.black.withOpacity(0.20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     ),
     inputDecorationTheme: InputDecorationTheme(
